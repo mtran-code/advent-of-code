@@ -17,7 +17,7 @@ templates_path |>
           stringr::str_pad(width = 2, side = "left", pad = "0")
       ) |>
       fs::dir_create() |>
-      fs::path("input.txt") |>
+      fs::path("input", ext = "txt") |>
       fs::file_create() |>
       fs::path_dir()
   )) |>
