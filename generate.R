@@ -1,5 +1,5 @@
 generate_files <- function(
-    year,
+    year = 2015,
     day = "all", exts = c("py", "R"), templates_path = fs::path("templates")) {
   templates_path |>
     fs::dir_ls(regexp = glue::glue(
@@ -31,4 +31,7 @@ generate_files <- function(
     )
 }
 
-generate_files(2024, 3)
+generate_files(
+  year = lubridate::now() |> lubridate::year(),
+  day = lubridate::now() |> lubridate::day()
+)
