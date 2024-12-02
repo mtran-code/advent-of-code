@@ -8,14 +8,14 @@ with open(input_file, "r") as f:
 
 
 @pytest.mark.benchmark
-def test_1p1():
+def test_2p1():
     assert part1(input_str) == 680
 
 @pytest.mark.benchmark
-def test_1p2():
+def test_2p2():
     assert part2(input_str) == 710
 
 @pytest.mark.benchmark
-def test_1():
+def test_2():
     assert part1(input_str) == 680
     assert part2(input_str) == 710
