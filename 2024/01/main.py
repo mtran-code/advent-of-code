@@ -38,8 +38,6 @@ def part2(input: list[str]) -> int:
         else:
             b[b_input] = 1
 
-    a.sort()
-
     result = 0
     for a_i in a:
         if a_i in b.keys():
