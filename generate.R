@@ -12,7 +12,10 @@ templates_path |>
   dplyr::cross_join(tibble::tibble(
     dest_folder = fs::path(year) |>
       fs::dir_create() |>
-      fs::path(1:num_days) |>
+      fs::path(
+        1:num_days |>
+          stringr::str_pad(width = 2, side = "left", pad = "0")
+      ) |>
       fs::dir_create() |>
       fs::path("input.txt") |>
       fs::file_create() |>
