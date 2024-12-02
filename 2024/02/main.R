@@ -59,7 +59,7 @@ part2 <- function(input) {
     print()
 }
 
-input_file <- "2024/2/input.txt"
+input_file <- "2024/02/input.txt"
 input <- read_input(input_file)
 part1(input)
 part2(input)

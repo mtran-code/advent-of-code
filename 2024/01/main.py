@@ -1,4 +1,4 @@
-input_file = "2024/1/input.txt"
+input_file = "2024/01/input.txt"
 
 with open(input_file, "r") as f:
     input_str = f.readlines()

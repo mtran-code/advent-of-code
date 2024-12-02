@@ -1,4 +1,4 @@
-input_file = "2024/2/input.txt"
+input_file = "2024/02/input.txt"
 
 with open(input_file, "r") as f:
     input_str = [line.strip() for line in f.readlines()]
