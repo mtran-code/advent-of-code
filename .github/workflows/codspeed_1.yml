@@ -9,7 +9,7 @@ on:
 
 jobs:
   codspeed:
-    name: Run benchmarks
+    name: Run day 1 benchmarks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

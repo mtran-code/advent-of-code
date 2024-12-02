@@ -1,4 +1,4 @@
-name: CodSpeed 2024/1
+name: CodSpeed 2024/2
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   codspeed:
-    name: Run benchmarks
+    name: Run day 2 benchmarks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
