@@ -1,10 +1,11 @@
-name: CodSpeed
+name: CodSpeed 2024/1
 
 on:
   push:
     branches:
-      - main # Run on pushes to the main branch
-  pull_request: # Run on all pull requests
+      - main
+    paths:
+      - "2024/01/**"
 
 jobs:
   codspeed:
@@ -21,4 +22,4 @@ jobs:
       - uses: CodSpeedHQ/action@v3
         with:
           run: pytest 2024/01/test.py --codspeed
-          token: ${{ secrets.CODSPEED_TOKEN }} # Optional for public repositories
+          token: ${{ secrets.CODSPEED_TOKEN }}

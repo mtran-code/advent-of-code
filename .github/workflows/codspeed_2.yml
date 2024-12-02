@@ -1,0 +1,25 @@
+name: CodSpeed 2024/1
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "2024/02/**"
+
+jobs:
+  codspeed:
+    name: Run benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: pip install pytest pytest-codspeed
+      - uses: CodSpeedHQ/action@v3
+        with:
+          run: pytest 2024/02/test.py --codspeed
+          token: ${{ secrets.CODSPEED_TOKEN }}
