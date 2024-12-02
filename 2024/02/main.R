@@ -36,17 +36,16 @@ part2 <- function(input) {
       if (diff < 1 || diff > 3) {
         if (last_chance) {
           return(FALSE)
-        } else {
-          return(
-            is_safe(
-              paste(input_ints[-(i - 1)], collapse = " "),
-              last_chance = TRUE
-            ) || is_safe(
-              paste(input_ints[-i], collapse = " "),
-              last_chance = TRUE
-            )
-          )
         }
+        return(
+          is_safe(
+            paste(input_ints[-(i - 1)], collapse = " "),
+            last_chance = TRUE
+          ) || is_safe(
+            paste(input_ints[-i], collapse = " "),
+            last_chance = TRUE
+          )
+        )
       }
     }
     TRUE
