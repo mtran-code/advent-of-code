@@ -19,16 +19,17 @@ def part2(input: str) -> int:
     matches = re.findall("do\\(\\)|don't\\(\\)|(?<=mul\\()[0-9]+,[0-9]+(?=\\))", input)
     print(matches)
     sum = 0
-    mult = 1
+    go = True
     for match_ in matches:
         match match_:
             case "do()":
-                mult = 1
+                go = True
             case "don't()":
-                mult = 0
+                go = False
             case _:
-                a, b = (int(factor) for factor in match_.split(","))
-                sum += a * b * mult
+                if go:
+                    a, b = (int(factor) for factor in match_.split(","))
+                    sum += a * b
     return sum
 
 
