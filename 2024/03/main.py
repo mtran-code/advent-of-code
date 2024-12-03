@@ -7,7 +7,7 @@ with open(input_file, "r") as f:
 
 
 def part1(input: str) -> int:
-    matches = re.findall("(?<=mul\\()([0-9]+,[0-9]+)(?=\\))", input)
+    matches = re.findall("(?<=mul\\()[0-9]+,[0-9]+(?=\\))", input)
     sum = 0
     for match in matches:
         a, b = (int(dig) for dig in match.split(","))
