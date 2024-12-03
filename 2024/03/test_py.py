@@ -8,16 +8,16 @@ with open(input_file, "r") as f:
 
 
 @pytest.mark.benchmark
-def test_3p1():
+def test_3p1_py():
     assert part1(input_str) == 159833790
 
 
 @pytest.mark.benchmark
-def test_3p2():
+def test_3p2_py():
     assert part2(input_str) == 89349241
 
 
 @pytest.mark.benchmark
-def test_3():
+def test_3_py():
     assert part1(input_str) == 159833790
     assert part2(input_str) == 89349241

@@ -18,8 +18,8 @@ jobs:
         with:
           python-version: "3.13"
       - name: Install dependencies
-        run: pip install pytest pytest-codspeed
+        run: pip install pytest pytest-codspeed rpy2
       - uses: CodSpeedHQ/action@v3
         with:
-          run: pytest 2024/03/test.py --codspeed
+          run: pytest 2024/03/ --codspeed
           token: ${{ secrets.CODSPEED_TOKEN }}
