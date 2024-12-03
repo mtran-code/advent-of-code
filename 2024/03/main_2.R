@@ -13,8 +13,10 @@ part1 <- function(input) {
     ) |>
     unlist() |>
     tibble::as_tibble_col(column_name = "expr_str") |>
-    dplyr::mutate(expr = purrr::map(expr_str, str2expression)) |>
-    dplyr::mutate(res = unlist(purrr::map(expr, eval))) |>
+    dplyr::mutate(
+      expr = purrr::map(expr_str, str2expression),
+      res = unlist(purrr::map(expr, eval))
+    ) |>
     dplyr::pull(res) |>
     sum() |>
     print()
@@ -24,11 +26,11 @@ part2 <- function(input) {
   multiplier <- 1
   do <- function() {
     multiplier <<- 1
-    0
+    NA
   }
   dont <- function() {
     multiplier <<- 0
-    0
+    NA
   }
   eval_dos <- function(expr) {
     eval(expr) * multiplier
@@ -46,7 +48,7 @@ part2 <- function(input) {
       res = unlist(purrr::map(expr, eval_dos))
     ) |>
     dplyr::pull(res) |>
-    sum() |>
+    sum(na.rm = TRUE) |>
     print()
 }
 
