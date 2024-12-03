@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "2024/03/**"
+  workflow_dispatch
 
 jobs:
   codspeed:
