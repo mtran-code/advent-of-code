@@ -3,7 +3,7 @@ generate_files <- function(
     day = "all", exts = c("py", "R"), templates_path = fs::path("templates")) {
   templates_path |>
     fs::dir_ls(regexp = glue::glue(
-      ".*\\/main\\.({stringr::str_c(exts, collapse = '|')})$"
+      "({stringr::str_c(exts, collapse = '|')})$"
     )) |>
     tibble::as_tibble_col(column_name = "template_file") |>
     dplyr::mutate(base_file = fs::path_file(template_file)) |>
@@ -22,7 +22,9 @@ generate_files <- function(
         fs::file_create() |>
         fs::path_dir()
     )) |>
-    dplyr::mutate(dest_file = fs::path(dest_folder, base_file)) |>
+    dplyr::mutate(dest_file = fs::path(
+      dest_folder, base_file |> stringr::str_remove("template_")
+    )) |>
     dplyr::select(template_file, dest_file) |>
     purrr::pwalk(
       \(template_file, dest_file) {

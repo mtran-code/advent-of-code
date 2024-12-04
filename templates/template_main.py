@@ -5,50 +5,18 @@ import argparse
 
 def read_input(input_file: str) -> list[str]:
     with open(input_file, "r") as f:
-        input_str = f.readlines()
+        input_str = [line.strip() for line in f.readlines()]
     return input_str
 
 
 def part1(input: list[str]) -> int:
-
-    a = list()
-    b = list()
-
-    for line in input:
-        left, right = line.split("   ")
-        a.append(int(left.strip()))
-        b.append(int(right.strip()))
-
-    a.sort()
-    b.sort()
-
-    result = 0
-    for i in range(len(a)):
-        result += abs(a[i] - b[i])
-
-    return result
+    # CODE HERE
+    return 1
 
 
 def part2(input: list[str]) -> int:
-    a = list()
-    b = dict()
-
-    for line in input:
-        left, right = line.split("   ")
-        a.append(int(left.strip()))
-
-        b_input = int(right.strip())
-        if b_input in b.keys():
-            b[b_input] += 1
-        else:
-            b[b_input] = 1
-
-    result = 0
-    for a_i in a:
-        if a_i in b.keys():
-            result += a_i * b[a_i]
-
-    return result
+    # CODE HERE
+    return 1
 
 
 def main(input_file, part):
@@ -64,7 +32,8 @@ def main(input_file, part):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="""Advent of Code 2024, Day 1:
+        # UPDATE DAY
+        description="""Advent of Code 2024, Day X:
     Take input file containing raw text input, and
     print out solution to either part 1 or part 2."""
     )

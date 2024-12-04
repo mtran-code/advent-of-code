@@ -1,3 +1,5 @@
+#!/usr/bin/env -S Rscript --vanilla
+
 read_input <- function(input_file) {
   input_file |> readr::read_file()
 }
@@ -18,8 +20,7 @@ part1 <- function(input) {
       res = unlist(purrr::map(expr, eval))
     ) |>
     dplyr::pull(res) |>
-    sum() |>
-    print()
+    sum()
 }
 
 part2 <- function(input) {
@@ -48,11 +49,32 @@ part2 <- function(input) {
       res = unlist(purrr::map(expr, eval_dos))
     ) |>
     dplyr::pull(res) |>
-    sum(na.rm = TRUE) |>
-    print()
+    sum(na.rm = TRUE)
 }
 
-input_file <- "2024/03/input.txt"
-input <- read_input(input_file)
-part1(input)
-part2(input)
+argv <- argparser::arg_parser(
+  name = "main.R",
+  description = paste(
+    # UPDATE DAY
+    "Advent of Code 2024, Day 3:",
+    "Take input file containing raw text input, and",
+    "print out solution to either part 1 or part 2."
+  ),
+  hide.opts = TRUE
+) |>
+  argparser::add_argument(
+    arg = "input", help = "Input text file path."
+  ) |>
+  argparser::add_argument(
+    arg = "part", help = "Which part to solve, either 1 or 2.",
+    type = "integer"
+  ) |>
+  argparser::parse_args()
+
+input <- argv$input |>
+  read_input()
+
+argv$part |>
+  switch(input |> part1() |> cat(sep = "\n"),
+    input |> part2() |> cat(sep = "\n")
+  )

@@ -23,8 +23,7 @@ part1 <- function(input) {
   input |>
     purrr::map_lgl(is_safe) |>
     table() |>
-    purrr::pluck("TRUE") |>
-    cat(sep = "\n")
+    purrr::pluck("TRUE")
 }
 
 
@@ -57,12 +56,11 @@ part2 <- function(input) {
   input |>
     purrr::map_lgl(is_safe) |>
     table() |>
-    purrr::pluck("TRUE") |>
-    cat(sep = "\n")
+    purrr::pluck("TRUE")
 }
 
 argv <- argparser::arg_parser(
-  name = "./main.R",
+  name = "main.R",
   description = paste(
     "Advent of Code 2024, Day 2:",
     "Take input file containing raw text input, and",
@@ -83,7 +81,6 @@ input <- argv$input |>
   read_input()
 
 argv$part |>
-  switch(
-    part1(input),
-    part2(input)
+  switch(input |> part1() |> cat(sep = "\n"),
+    input |> part2() |> cat(sep = "\n")
   )

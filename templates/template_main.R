@@ -2,46 +2,25 @@
 
 read_input <- function(input_file) {
   input_file |>
-    readr::read_delim(
-      delim = "   ",
-      col_names = c("A", "B"),
-      col_types = "ii",
-      progress = FALSE,
-      show_col_types = FALSE
-    )
+    readr::read_lines(progress = FALSE)
 }
 
 part1 <- function(input) {
-  input |>
-    dplyr::select(A) |>
-    dplyr::arrange(A) |>
-    dplyr::bind_cols(
-      input |>
-        dplyr::select(B) |>
-        dplyr::arrange(B)
-    ) |>
-    dplyr::mutate(diff = abs(B - A)) |>
-    dplyr::pull(diff) |>
-    sum()
+  # CODE HERE
+  1
 }
 
 
 part2 <- function(input) {
-  input |>
-    dplyr::select(A) |>
-    dplyr::left_join(
-      input |> dplyr::count(B),
-      by = dplyr::join_by(A == B)
-    ) |>
-    dplyr::mutate(sim = A * n) |>
-    dplyr::pull(sim) |>
-    sum(na.rm = TRUE)
+  # CODE HERE
+  1
 }
 
 argv <- argparser::arg_parser(
   name = "main.R",
   description = paste(
-    "Advent of Code 2024, Day 1:",
+    # UPDATE DAY
+    "Advent of Code 2024, Day X:",
     "Take input file containing raw text input, and",
     "print out solution to either part 1 or part 2."
   ),

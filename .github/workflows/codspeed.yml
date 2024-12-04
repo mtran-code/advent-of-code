@@ -1,16 +1,16 @@
-name: CodSpeed 2024/3
+name: CodSpeed 2024
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - "2024/03/**"
-  workflow_dispatch:
+      - "2024/**"
 
 jobs:
   codspeed:
-    name: Run day 3 benchmarks
+    name: Run Benchmarks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,15 +19,15 @@ jobs:
         with:
           python-version: "3.13"
       - name: Install Python dependencies
-        run: pip install pytest pytest-codspeed rpy2
+        run: pip install pytest pytest-codspeed
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
       - name: Install R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          packages: any::tidyverse
-      - name: Run Codspeed Benchmark
+          packages: any::tidyverse, any::argparser
+      - name: Run Benchmarks
         uses: CodSpeedHQ/action@v3
         with:
-          run: pytest 2024/03/ --codspeed
+          run: pytest 2024/ --codspeed
           token: ${{ secrets.CODSPEED_TOKEN }}
