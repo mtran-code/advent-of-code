@@ -15,21 +15,26 @@ part1 <- function(input) {
     ) |>
     unlist() |>
     tibble::as_tibble_col(column_name = "expr_str") |>
-    purrr::pmap(\(expr_str) str2expression(expr_str)) |>
-    purrr::map(eval) |>
-    unlist() |>
+    dplyr::mutate(
+      expr = purrr::map(expr_str, str2expression),
+      res = unlist(purrr::map(expr, eval))
+    ) |>
+    dplyr::pull(res) |>
     sum()
 }
 
 part2 <- function(input) {
-  do <- TRUE
-  do_or_dont <- function(x) {
-    if (x == "don't()") {
-      do <<- FALSE
-    } else if (x == "do()") {
-      do <<- TRUE
-    }
-    do
+  multiplier <- 1
+  do <- function() {
+    multiplier <<- 1
+    NA
+  }
+  dont <- function() {
+    multiplier <<- 0
+    NA
+  }
+  eval_dos <- function(expr) {
+    eval(expr) * multiplier
   }
 
   input |>
@@ -38,22 +43,20 @@ part2 <- function(input) {
     ) |>
     unlist() |>
     tibble::as_tibble_col(column_name = "expr_str") |>
-    dplyr::rowwise() |>
-    dplyr::mutate(include = do_or_dont(expr_str)) |>
-    dplyr::ungroup() |>
-    dplyr::filter(include == TRUE, expr_str != "do()") |>
-    dplyr::select(expr_str) |>
-    purrr::pmap(\(expr_str) str2expression(expr_str)) |>
-    purrr::map(eval) |>
-    unlist() |>
-    sum()
+    dplyr::mutate(
+      expr_str = purrr::modify_if(expr_str, \(x) x == "don't()", ~"dont()"),
+      expr = purrr::map(expr_str, str2expression),
+      res = unlist(purrr::map(expr, eval_dos))
+    ) |>
+    dplyr::pull(res) |>
+    sum(na.rm = TRUE)
 }
 
 argv <- argparser::arg_parser(
   name = "main.R",
   description = paste(
     # UPDATE DAY
-    "Advent of Code 2024, Day X:",
+    "Advent of Code 2024, Day 3:",
     "Take input file containing raw text input, and",
     "print out solution to either part 1 or part 2."
   ),
