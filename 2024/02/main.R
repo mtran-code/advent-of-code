@@ -1,7 +1,10 @@
+#!/usr/bin/env Rscript --vanilla
+
 read_input <- function(input_file) {
   input_file |>
     readr::read_lines(progress = FALSE)
 }
+
 part1 <- function(input) {
   is_safe <- function(input_str) {
     input_ints <- input_str |>
@@ -21,7 +24,7 @@ part1 <- function(input) {
     purrr::map_lgl(is_safe) |>
     table() |>
     purrr::pluck("TRUE") |>
-    print()
+    cat(sep = "\n")
 }
 
 
@@ -55,10 +58,32 @@ part2 <- function(input) {
     purrr::map_lgl(is_safe) |>
     table() |>
     purrr::pluck("TRUE") |>
-    print()
+    cat(sep = "\n")
 }
 
-input_file <- "2024/02/input.txt"
-input <- read_input(input_file)
-part1(input)
-part2(input)
+argv <- argparser::arg_parser(
+  name = "./main.R",
+  description = paste(
+    "Advent of Code 2024, Day 2:",
+    "Take input file containing raw text input, and",
+    "print out solution to either part 1 or part 2."
+  ),
+  hide.opts = TRUE
+) |>
+  argparser::add_argument(
+    arg = "input", help = "Input text file path."
+  ) |>
+  argparser::add_argument(
+    arg = "part", help = "Which part to solve, either 1 or 2.",
+    type = "integer"
+  ) |>
+  argparser::parse_args()
+
+input <- argv$input |>
+  read_input()
+
+argv$part |>
+  switch(
+    part1(input),
+    part2(input)
+  )

@@ -26,7 +26,8 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: any::tidyverse
-      - uses: CodSpeedHQ/action@v3
+      - name: Run Codspeed Benchmark
+        uses: CodSpeedHQ/action@v3
         with:
           run: pytest 2024/03/ --codspeed
           token: ${{ secrets.CODSPEED_TOKEN }}
