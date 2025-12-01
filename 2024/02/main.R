@@ -43,10 +43,11 @@ part2 <- function(input) {
           is_safe(
             paste(input_ints[-(i - 1)], collapse = " "),
             last_chance = TRUE
-          ) || is_safe(
-            paste(input_ints[-i], collapse = " "),
-            last_chance = TRUE
-          )
+          ) ||
+            is_safe(
+              paste(input_ints[-i], collapse = " "),
+              last_chance = TRUE
+            )
         )
       }
     }
@@ -69,10 +70,12 @@ argv <- argparser::arg_parser(
   hide.opts = TRUE
 ) |>
   argparser::add_argument(
-    arg = "input", help = "Input text file path."
+    arg = "input",
+    help = "Input text file path."
   ) |>
   argparser::add_argument(
-    arg = "part", help = "Which part to solve, either 1 or 2.",
+    arg = "part",
+    help = "Which part to solve, either 1 or 2.",
     type = "integer"
   ) |>
   argparser::parse_args()
@@ -81,6 +84,7 @@ input <- argv$input |>
   read_input()
 
 argv$part |>
-  switch(input |> part1() |> cat(sep = "\n"),
+  switch(
+    input |> part1() |> cat(sep = "\n"),
     input |> part2() |> cat(sep = "\n")
   )
